@@ -1,12 +1,20 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 function NewProduct() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
   const handleSumitPost = async (data) => {
     await axios.post(`${import.meta.env.VITE_API}`, data);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "CREADO OK!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     navigate("/");
   };
 

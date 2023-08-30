@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import axios from "axios";
+import Swal from "sweetalert2";
 
 /* eslint-disable react/prop-types */
 function TableBody({
@@ -14,6 +15,13 @@ function TableBody({
 }) {
   const handleCLickDelete = async (id) => {
     await axios.delete(`${import.meta.env.VITE_API}/${id}`);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "CREADO OK!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     setProducts(products.filter((p) => p._id !== id));
   };
 
