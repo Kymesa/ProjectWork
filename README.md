@@ -1,9 +1,9 @@
 # Framework: React JS + Vite
 
-# Manejor de Formulario: React Hook Form
+Manejo de Formulario: [React Hook Form](https://www.react-hook-form.com/)
 
-# Manejo de las Rutas: React Router
+Manejo de las Rutas: [React Router](https://reactrouter.com/en/main/start/tutorial)
 
-# Manejo de los Estilos y Notificaciones: Tailwind CSS + Meraky UI + sweetalert2
+Manejo de los Estilos y Notificaciones: [TailwindCSS](https://tailwindcss.com/) + [Meraky UI](https://merakiui.com/components) + [Sweet Alert](https://sweetalert2.github.io/)
 
-# Manejo de los servicios: Axios
+Manejo de los servicios: [Axios](https://axios-http.com/es/docs/intro)
