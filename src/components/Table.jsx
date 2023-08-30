@@ -35,18 +35,37 @@ function Table() {
               <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <TableHeader />
-                  {products?.map((p) => (
-                    <TableBody
-                      setProducts={setProducts}
-                      products={products}
-                      key={p._id}
-                      name={p.name}
-                      provider={p.provider}
-                      category={p.category}
-                      price={p.price}
-                      id={p._id}
-                    />
-                  ))}
+                  {products ? (
+                    products.map((p) => (
+                      <TableBody
+                        setProducts={setProducts}
+                        products={products}
+                        key={p._id}
+                        name={p.name}
+                        provider={p.provider}
+                        category={p.category}
+                        price={p.price}
+                        id={p._id}
+                      />
+                    ))
+                  ) : (
+                    <>
+                      <tfoot>
+                        <tr>
+                          <td>
+                            <div className="w-[30vh]  animate-pulse p-9">
+                              <h1 className="h-2 bg-gray-300 rounded-lg w-52 dark:bg-gray-600"></h1>
+
+                              <p className="w-48 h-2 mt-6 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                              <p className="w-full h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                              <p className="w-64 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                              <p className="w-4/5 h-2 mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+                            </div>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </>
+                  )}
                 </table>
               </div>
             </div>

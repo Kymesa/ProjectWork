@@ -1,20 +1,25 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-function NewProduct() {
+function EditProduct() {
+  const { productId } = useParams();
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
   });
   const navigate = useNavigate();
-  const handleSumitPost = async (data) => {
-    await axios.post(`${import.meta.env.VITE_API}`, data);
+  const {
+    state: { name, provider, category, price },
+  } = useLocation();
+
+  const handleSumitPut = async (data) => {
+    await axios.put(`${import.meta.env.VITE_API}/${productId}`, data);
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "CREADO OK!",
+      title: "EDITADO OK!",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -25,10 +30,10 @@ function NewProduct() {
     <>
       <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
         <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white text-center">
-          PRODUCT NEW
+          PRODUCT EDIT
         </h2>
 
-        <form onSubmit={handleSubmit(handleSumitPost)}>
+        <form onSubmit={handleSubmit(handleSumitPut)}>
           <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
               <label
@@ -38,6 +43,7 @@ function NewProduct() {
                 Name
               </label>
               <input
+                defaultValue={name}
                 {...register("name", {
                   required: { value: true, message: "INGRESE UN NOMBRE" },
                 })}
@@ -55,9 +61,11 @@ function NewProduct() {
                 Provider
               </label>
               <input
+                defaultValue={provider}
                 {...register("provider", {
                   required: { value: true, message: "INGRESE UN PROVEEDOR" },
                 })}
+                required
                 id="provider"
                 type="text"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
@@ -72,6 +80,7 @@ function NewProduct() {
                 Category
               </label>
               <input
+                defaultValue={category}
                 {...register("category", {
                   required: { value: true, message: "INGRESE LA CATEGORIA" },
                 })}
@@ -89,9 +98,11 @@ function NewProduct() {
                 Price
               </label>
               <input
+                defaultValue={price}
                 {...register("price", {
                   required: { value: true, message: "INGRESE UN PRECIO" },
                 })}
+                required
                 id="price"
                 type="number"
                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
@@ -113,7 +124,7 @@ function NewProduct() {
               type="submit"
               className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transhtmlForm bg-green-700 rounded-md "
             >
-              Save
+              Update
             </button>
           </div>
         </form>
@@ -122,4 +133,4 @@ function NewProduct() {
   );
 }
 
-export default NewProduct;
+export default EditProduct;
