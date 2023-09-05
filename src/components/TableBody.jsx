@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import axios from "axios";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -14,6 +15,46 @@ function TableBody({
   setProducts,
   products,
 }) {
+  const [textDecorate, setTextDecorate] = useState(false);
+
+  const fnChanges = () => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: `${name} Seleccionado OK!`,
+    });
+
+    if (textDecorate) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, descliquear",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire("Descliquedo!", "Se descliqueo", "success");
+          return setTextDecorate(!textDecorate);
+        }
+      });
+      return;
+    }
+    return setTextDecorate(!textDecorate);
+  };
+
   const handleCLickDelete = async (id, name) => {
     Swal.fire({
       title: "Estas Seguro?",
@@ -41,7 +82,12 @@ function TableBody({
               <div className="flex items-center gap-x-2">
                 <div>
                   <h2 className="font-medium text-gray-800 dark:text-white ">
-                    {name}
+                    <button
+                      onClick={() => fnChanges()}
+                      className={textDecorate ? "btn__decoration__name" : null}
+                    >
+                      {name}
+                    </button>
                   </h2>
                 </div>
               </div>
